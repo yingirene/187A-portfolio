@@ -1,0 +1,243 @@
+* {
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-image: url("geometry2.png");
+  background-repeat: repeat;
+  background-position: top;
+  background-attachment: fixed;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+h1 {
+  margin: 0px 0px 10px 0px;
+}
+
+li {
+  padding-bottom: 10px;
+}
+
+a {
+  /*color: #5A3A31;*/
+}
+
+th a{
+  color: black;
+}
+
+.sidebar_buffer {
+  float: left;
+  min-height: 100%;
+  width: 150px;
+  visibility: none;
+}
+
+.sidebar {
+  background: white;
+  top: 0px;
+  width: 130px;
+  min-height: 100%;
+  position: fixed;
+  padding: 10px;
+}
+
+.logo {
+  margin: 20px 0px 15px;
+}
+
+.logo img {
+  align-self: center;
+  max-width: 100%;
+  margin-bottom: 5px;
+}
+
+.nav {
+  padding-left: 5px;
+}
+
+.nav button {
+  text-align: left;
+  background-color: rgba(255,0,0,0);
+  border: none;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.proj_nav{
+  margin-left: 5px;
+}
+
+.proj_nav button{
+  color: #5A3A31;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#main_title {
+  overflow: auto;
+  padding-top: 50px;
+  padding-left: 90px;
+  padding-bottom: 50px;
+  background-color: rgba(255,0,0,0);
+}
+
+.fullwidth_banner {
+}
+
+.content {
+  overflow: auto;
+  position: relative;
+}
+
+.content div {
+  display: table;
+  width: 100%;
+  padding: 30px;
+  background: white;
+}
+
+.content p {
+  margin: 0px;
+}
+
+.table#interests {
+  width: 100%;
+  vertical-align: top;
+}
+
+table#interests td{
+  padding-bottom: 10px;
+}
+
+.content #about #skills {
+  height: auto;
+  max-width: 100%;
+  padding: 0px;
+  text-align: center;
+}
+
+.content #about #skills #skills_entry {
+  display: table-cell;
+  vertical-align: top;
+  width: auto;
+  max-width: 200px;
+  height: auto;
+  text-align: center;
+}
+
+.content #about #skills #skills_entry span{
+}
+
+#current table td{
+  vertical-align: top;
+  padding-bottom: 10px;
+}
+
+#current table td#label{
+  width: 1px;
+  white-space: nowrap;
+  text-align: right;
+}
+
+#current table td#label span{
+  padding: 0px 0px 5px 10px;
+  background: #F4E79B;
+}
+
+#proj_entry .thumbnail{
+  padding: 0px !important;
+}
+
+.thumbnail td{
+  padding: 0px !important;
+}
+
+.thumbnail img{
+  width: 200px;
+  padding: 0px 5px 0px 5px;
+  opacity: 1;
+}
+
+.thumbnail img:hover{
+  opacity: 0.5;
+}
+
+#mus:hover img{
+  opacity: 0.5;
+}
+
+#port:hover img{
+  opacity: 0.5;
+}
+
+#time:hover img{
+  opacity: 0.5;
+}
+
+div.text{
+  background-color: rgba(255,0,0,0);
+  padding: 0px !important;
+  margin-top: -100px;
+  position: absolute;
+  width: auto;
+  max-width: 200px;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+div.text span{
+  background: #F4E79B;
+}
+
+table#proj_entry .name{
+  font-size: 18px;
+  text-align: left;
+}
+
+table#proj_entry .date{
+  color: #F28D7B;
+}
+
+table#proj_entry .desc{
+  padding-bottom: 20px;
+  max-width: 750px;
+}
+
+div.moreOverlay{
+  background: #F4E79B;
+  padding: 0px;
+  margin-top: -70px;
+  position: absolute;
+  text-align: center;
+  visibility: hidden;
+  pointer-events: none;
+  max-width: 635px;
+}
+
+.content #footer {
+  height: auto;
+  padding: 0px;
+  font-size: 8px;
+}
+
+.content #page_end {
+  padding: 0px;
+  height: 0;
+  width: 100%;
+}
+
+#screen_bottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

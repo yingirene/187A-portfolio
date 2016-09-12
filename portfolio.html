@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function (){
+      setTimeout(function(){}, 3000);
+      var screenHt = parseInt($('#screen_bottom').offset().top - $('.sidebar').offset().top);
+      var midpoint = screenHt/2;
+      var pad = parseInt($("div.content > div#about").css('padding'));
+      pad = pad * 2;
+      var newHt = (screenHt-pad);
+      var titleHt = $("#main_title").height();
+      var activeLink;
+      var hash = window.location.hash.substring(1);
+      if(hash == "anc_about"){
+        activeLink = a_about;
+      } else if(hash == "anc_curr"){
+        activeLink = a_current;
+      } else if(hash == "anc_proj"){
+        activeLink = a_projects;
+      }
+      $(activeLink).css("color", "#F28D7B");
+      var isClicked = 0;
+
+      if($('.content').offset().top < screenHt) {
+        var temp = parseInt($("#main_title").height());
+        temp = temp + parseInt($("#main_title").css("padding-top")) + parseInt($("#main_title").css("padding-bottom"));
+        $('.content').css('top', (screenHt-temp) + 'px');
+      }
+      if($('#about').height() < newHt) {
+        $('.sizer').css('height', newHt + 'px');
+      }
+      if($('#current').height() < newHt) {
+        $('.sizer').css('height', newHt + 'px');
+      }
+      if($('#projects').height() < newHt) {
+        $('.sizer').css('height', newHt + 'px');
+      }
+      if($('#contact').height() <= newHt) {
+        var temp = parseInt($("#footer").height());
+        temp = newHt - temp;
+        $('#contact').css('height', temp + 'px');
+      }
+
+      var ancOff_1 = $('#pos_about').offset().top;
+      var ancOff_2 = $('#pos_curr').offset().top;
+      var ancOff_3 = $('#pos_proj').offset().top;
+      var ancOff_4 = $('#pos_cont').offset().top;
+
+      $(window).scroll(function() {
+        if(isClicked == 0){
+          var temp = parseInt($(window).scrollTop()) + 100;
+          if ( temp < ancOff_1 ) {
+            $(activeLink).css('color', 'black');
+          } else if ( temp >= ancOff_1 && temp < ancOff_2 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_about").css('color', '#F28D7B');
+            activeLink = "#a_about";
+          } else if ( temp >= ancOff_2 && temp < ancOff_3 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_current").css('color', '#F28D7B');
+            activeLink = "#a_current";
+          } else if ( temp >= ancOff_3 && temp < ancOff_4 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_projects").css('color', '#F28D7B');
+            activeLink = "#a_projects";
+          } else if ( temp >= ancOff_4 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_contact").css('color', '#F28D7B');
+            activeLink = "#a_contact";
+          }
+        }
+      });
+
+      $( window ).resize(function() {
+        $('.content').css('top', titleHt + 'px');
+        $('.sizer').height('auto');
+        screenHt = parseInt($('#screen_bottom').offset().top - $('.sidebar').offset().top);
+        midpoint = screenHt/2;
+        newHt = (screenHt-pad);
+        if($('.content').offset().top < screenHt) {
+          var temp = parseInt($("#main_title").height());
+          temp = temp + parseInt($("#main_title").css("padding-top")) + parseInt($("#main_title").css("padding-bottom"));
+          $('.content').css('top', (screenHt-temp) + 'px');
+        }
+        if($('#about').height() < newHt) {
+          $('.sizer').css('height', newHt + 'px');
+        }
+        if($('#current').height() < newHt) {
+          $('.sizer').css('height', newHt + 'px');
+        }
+        if($('#projects').height() < newHt) {
+          $('.sizer').css('height', newHt + 'px');
+        }
+        if($('#contact').height() <= newHt) {
+          var temp = parseInt($("#footer").height());
+          temp = newHt - temp;
+          $('#contact').css('height', temp + 'px');
+        }
+
+        ancOff_1 = $('#pos_about').offset().top;
+        ancOff_2 = $('#pos_curr').offset().top;
+        ancOff_3 = $('#pos_proj').offset().top;
+        ancOff_4 = $('#pos_cont').offset().top;
+      });
+
+      var prevColor;
+      $("button").hover(function(){
+        prevColor = $(this).css("color");
+        $(this).css("color", "#F28D7B");
+        }, function(){
+        if(activeLink != this) {
+            $(this).css("color", prevColor);
+        }
+      });
+
+      var whichProj;
+      $('.thumbnail').mouseover(function() {
+        whichProj = "#";
+        whichProj += $(this).attr('id');
+        whichProj += "2";
+        $(whichProj).css('visibility', 'visible');
+      });
+      $('.thumbnail').mouseout(function() {
+        $(whichProj).css('visibility', 'hidden');
+      });
+
+      $("#a_home").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
+        $(activeLink).fadeTo('slow', 0.3, function()
+        {
+          $(activeLink).css('color', 'black');
+          activeLink = this;
+        }).fadeTo('slow',1);
+        $("#a_home").css('color', '#F28D7B');
+        $("#a_home").fadeTo('slow', 0.3, function()
+        {
+          $(this).css('color', 'black');
+          isClicked = 0;
+        }).fadeTo('slow',1);
+      });
+      $("#a_about").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $("#about").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $("#a_about").css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+      $("#a_current").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $("#current").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $("#a_current").css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+      $("#a_projects").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $("#projects").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $(this).css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+      $("#a_contact").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $("#page_end").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $("#a_contact").css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+    });
+  </script>
+  <head>
+    <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+    <title>Irene Ying: Portfolio</title>
+  </head>
+  <body>
+    <div class="sidebar_buffer"></div>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="anim_taiyaki.gif"/>
+      </div>
+      <div class="nav">
+        <button id="a_home">Home</button></br>
+        <button id="a_about">About</button></br>
+        <button id="a_current">Recent</button></br>
+        <button id="a_projects">Projects</button></br>
+        <button id="a_contact">Contact</button>
+      </div>
+    </div>
+    <div id="main_title">
+      <h2>Portfolio of Irene Ying</h2>
+      <p>Software Developer and Artist</p>
+    </div>
+    <div class="fullwidth_banner">
+    </div>
+    <div class="content">
+      <a name="anc_about" id="pos_about"></a>
+      <div id="about" class="sizer">
+        <div style="max-width: 900px; padding: 0px;">
+          <h1>About Me</h1>
+          <p>
+            I'm Irene Ying, a third-year college student, currently working towards a B.S. in Computer Science at UCSD.
+            On the side, I work on side projects that satisfy my passion for creating involving developing programs, as
+            well as other creative pursuits such as illustration and storytelling.</br>
+          </p>
+          </br>
+          <table id="interests">
+            <tr>
+              <td style="vertical-align: top;"><b>My Goals: </b>I aim to add value to people's lives with the things that I create and to approach
+              problems in ways that I haven't seen before.</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;"><b>Main Focuses: </b>Software Development, Problem Solving, Art/Illustration, Interactive Design, Storytelling</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;"><b>Topics of Interest: </b>Education, Artificial Intelligence, Productivity, Language</td>
+            </tr>
+          </table>
+          <div id="skills">
+            <div id="skills_entry">
+              <img src="babyboy.jpg" style="width: 100px;">
+              <h3><span>Education:</span></h3>
+              <p style="text-align: left;">UC San Diego
+              </br><b>GPA:</b> 3.6
+              </br><b>Major:</b> B.S. Computer Science
+              </br><b>Expected Graduation:</b> 2017</p>
+            </div>
+            <div id="skills_entry">
+              <img src="babyboy.jpg" style="width: 100px;">
+              <h3><span>Coding:</span></h3>
+              <p style="text-align: left;">Java, Python, HTML/CSS, Javascript, C++</p>
+            </div>
+            <div id="skills_entry">
+              <img src="babyboy.jpg" style="width: 100px;">
+              <h3><span>Design:</span></h3>
+              <p style="text-align: left;">Adobe PS, Adobe AI, GIMP, MangaStudio, Invision, Axure</p>
+            </div>
+          </div>
+        </div>
+        <a name="anc_about"></a>
+      </div>
+      <a name="anc_curr" id="pos_curr"></a>
+      <div id="current" class="sizer">
+        <h1>What I'm Doing Now</h1>
+        <p>As of March 15th, 2016,</p>
+        <blockquote>
+          <table>
+            <tr>
+              <td id="label">
+                <b><span>Current Projects: </span></b>
+              </td><td>
+                I am working on designing and developing this portfolio website.
+              </td>
+            </tr><tr>
+              <td rowspan="2" id="label">
+                <b><span>Learning: </span></b>
+              </td><td>
+                Working on broadening my knowledge of the programming languages:
+                Python, Javascript, and Java.
+              </td>
+            </tr><tr>
+              <td>
+                Improving my skills in Japanese and beginning to learn French.
+              </td>
+            </tr>
+          </table>
+
+        </blockquote>
+      </div>
+      <a name="anc_proj" id="pos_proj"></a>
+      <div id="projects" class="sizer">
+        <h1>Projects</h1>
+        <table id="proj_entry">
+          <tr class="name"><th><a href="projects.html#anc_mus">Music App Redesign</a></th></tr>
+          <tr>
+            <td><a href="projects.html#anc_mus"><div class="thumbnail" id="mus">
+              <img src="thumbnails/redesign1.png" alt="Image" />
+              <img src="thumbnails/redesign2.png" alt="Image" />
+              <img src="thumbnails/redesign3.png" alt="Image" />
+            </div></a></td>
+          </tr>
+          <tr><td><div class="moreOverlay" id="mus2">
+            Click to learn more.
+          </div></td></tr>
+          <tr class="date">
+            <td>
+              March 2016
+            </td>
+          </tr>
+          <tr>
+            <td class="desc">
+              Aggregated and analyzed user interactions with current music streaming apps and used
+              the information to design a new music streaming app.</br>
+            </td>
+          </tr>
+          <tr class="name"><th><a href="projects.html#anc_port">Digital Portfolio</a></th></tr>
+          <tr>
+            <td><a href="projects.html#anc_port"><div class="thumbnail" id="port">
+              <img src="thumbnails/portfolio1.png" alt="Image" />
+              <img src="thumbnails/portfolio2.png" alt="Image" />
+              <img src="thumbnails/portfolio3.png" alt="Image" />
+            </div></a></td>
+          </tr>
+          <tr><td><div class="moreOverlay" id="port2">
+            Click to learn more.
+          </div></td></tr>
+          <tr class="date">
+            <td>
+              March 2016
+            </td>
+          </tr>
+          <tr>
+            <td class="desc">
+              Designed and developed a personal portfolio website to showcase my
+              projects and introduce myself. Used HTML, CSS, and Javascript.</br>
+            </td>
+          </tr>
+          <tr class="name"><th><a href="projects.html#anc_time">Productivity Timer</a></th></tr>
+          <tr>
+            <td><a href="projects.html#anc_time"><div class="thumbnail" id="time">
+              <img src="thumbnails/timer1.png" alt="Image" />
+              <img src="thumbnails/timer2.png" alt="Image" />
+              <img src="thumbnails/timer3.png" alt="Image" />
+            </div></a></td>
+          </tr>
+          <tr><td><div class="moreOverlay" id="time2">
+            Click to learn more.
+          </div></td></tr>
+          <tr class="date">
+            <td>
+              April 2015
+            </td>
+          </tr>
+          <tr>
+            <td class="desc">
+              Developed a timer program that replicates the Pomodoro technique of time management.
+              Developed using Java.</br>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <a name="anc_cont" id="pos_cont"></a>
+      <div id="contact" class="sizer">
+        <h1>Contact Me</h1>
+        <p>
+          E-mail: iying@ucsd.edu
+        </p>
+        </br>
+        <img src="lnkin.png" style="max-width: 14px;"/>: <a href="www.linkedin.com/in/yingirene">www.linkedin.com/in/yingirene</a>
+        </br>
+      </div>
+      <div id="footer">
+        <span>Copyright&copy;2016 IRENE YING all rights reserved. </span>
+        <span style="font-size: 5px;">.--. .-.. . .- ... . / -.-. --- -. - .- -.-. - / -- . / .-- .. - .... / .- -. -.-- / --.- ..- . ... - .. --- -. ... / -.-- --- ..- / -- .- -.-- / .... .- ...- . .-.-.-</span>
+      </div>
+      <div id="page_end"></div>
+    </div>
+    <div id="screen_bottom"></div>
+  </body>
+</html>

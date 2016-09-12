@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function (){
+      setTimeout(function(){}, 3000);
+      var screenHt = parseInt($('#screen_bottom').offset().top - $('.sidebar').offset().top);
+      var midpoint = screenHt/2;
+      var pad = parseInt($("div.content > div#project1").css('padding'));
+      pad = pad * 2;
+      var titleHt = parseInt($("#main_title").height()) + 2*(parseInt($("#main_title").css("padding")));
+      var newHt = (screenHt-(pad+titleHt));
+      var activeLink;
+      var hash = window.location.hash.substring(1);
+      if(hash == "anc_mus"){
+        activeLink = a_proj1;
+      } else if(hash == "anc_port"){
+        activeLink = a_proj2;
+      } else if(hash == "anc_time"){
+        activeLink = a_proj3;
+      }
+      $(activeLink).css("color", "#F28D7B");
+      $("#a_projects").css("color", "#F28D7B");
+      var isClicked = 0;
+
+      if($('#project1').height() < newHt) {
+        $('.sizer').css('height', newHt + 'px');
+      }
+      if($('#project2').height() < newHt) {
+        $('.sizer').css('height', newHt + 'px');
+      }
+      if($('#project3').height() < newHt) {
+        $('.sizer').css('height', newHt + 'px');
+      }
+
+      var ancOff_1 = $('#pos_mus').offset().top;
+      var ancOff_2 = $('#pos_port').offset().top;
+      var ancOff_3 = $('#pos_time').offset().top;
+      var ancOff_4 = $('#pos_cont').offset().top;
+
+      $(window).scroll(function() {
+        if(isClicked == 0) {
+          var temp = parseInt($(window).scrollTop()) + 100;
+          if ( temp >= ancOff_1 && temp < ancOff_2 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_proj1").css('color', '#F28D7B');
+            activeLink = "#a_proj1";
+          } else if ( temp >= ancOff_2 && temp < ancOff_3 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_proj2").css('color', '#F28D7B');
+            activeLink = "#a_proj2";
+          }else if ( temp >= ancOff_3 && temp < ancOff_4 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_proj3").css('color', '#F28D7B');
+            activeLink = "#a_proj3";
+          } else if ( temp >= ancOff_4 ) {
+            $(activeLink).css('color', 'black');
+            $("#a_contact").css('color', '#F28D7B');
+            activeLink = "#a_contact";
+          }
+        }
+      });
+
+      $( window ).resize(function() {
+        $('.sizer').height('auto');
+        screenHt = parseInt($('#screen_bottom').offset().top - $('.sidebar').offset().top);
+        midpoint = screenHt/2;
+        newHt = (screenHt-(pad+titleHt));
+        if($('#project1').height() < newHt) {
+          $('.sizer').css('height', newHt + 'px');
+        }
+        if($('#project2').height() < newHt) {
+          $('.sizer').css('height', newHt + 'px');
+        }
+        if($('#project3').height() < newHt) {
+          $('.sizer').css('height', newHt + 'px');
+        }
+
+        ancOff_1 = $('#pos_mus').offset().top;
+        ancOff_2 = $('#pos_port').offset().top;
+        ancOff_3 = $('#pos_time').offset().top;
+        ancOff_4 = $('#pos_cont').offset().top;
+      });
+
+      var prevColor;
+      $("button").hover(function(){
+        prevColor = $(this).css("color");
+        $(this).css("color", "#F28D7B");
+        }, function(){
+        if(activeLink != this) {
+            $(this).css("color", prevColor);
+        }
+      });
+
+      var whichProj;
+      $('.thumbnail').mouseover(function() {
+        whichProj = "tr.";
+        whichProj += $(this).closest('table').attr('id');
+        whichProj = whichProj.slice(0,-1);
+        whichProj += "2 div.text";
+        $(whichProj).css('visibility', 'visible');
+      });
+      $('.thumbnail').mouseout(function() {
+        $(whichProj).css('visibility', 'hidden');
+      });
+
+      $("#a_proj1").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $(".main_title1").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $("#a_proj1").css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+      $("#a_proj2").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $(".main_title2").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $("#a_proj2").css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+      $("#a_proj3").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $(".main_title3").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $(this).css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+      $("#a_contact").click(function() {
+        isClicked = 1;
+        $('html, body').animate({
+            scrollTop: $("#page_end").offset().top
+        }, 800);
+        $(activeLink).css('color', 'black');
+        $("#a_contact").css('color', '#F28D7B');
+        activeLink = this;
+        setTimeout(function(){
+          isClicked = 0;
+        }, 800);
+      });
+    });
+  </script>
+  <head>
+    <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+    <title>Irene Ying: Music App Redesign</title>
+  </head>
+  <body>
+    <div class="sidebar_buffer"></div>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="anim_taiyaki.gif"/>
+      </div>
+      <div class="nav">
+        <a href="portfolio.html"><button id="a_home">Home</button></a></br>
+        <a href="portfolio.html#anc_about"><button id="a_about">About</button></a></br>
+        <a href="portfolio.html#anc_curr"><button id="a_current">Recent</button></a></br>
+        <a href="portfolio.html#anc_proj"><button id="a_projects">Projects</button></a></br>
+        <div class="proj_nav">
+          <a href="projects.html#anc_mus"><button id="a_proj1">Redesign</button></a></br>
+          <a href="projects.html#anc_port"><button id="a_proj2">Portfolio</button></a></br>
+          <a href="projects.html#anc_time"><button id="a_proj3">Timer</button></a></br>
+        </div>
+        <a href="projects.html#anc_cont"><button id="a_contact">Contact</button></a>
+      </div>
+    </div>
+    <a name="anc_mus" id="pos_mus"></a>
+    <div class="main_title1" id="main_title">
+      <h2>Project: Music App Redesign</h2>
+      <p>Date: March 2016</p>
+    </div>
+    <div class="content">
+      <div id="project1" class="sizer">
+        <h1>Redesign of a Music Streaming App</h1>
+        <span>Completed for the course COGS187a: Cognitive Aspects of Digital Design
+        </br> Team members: Rafael Aguayo and Jeff Hoang</span>
+        <blockquote>
+          <ul>
+            <li>Week 1: Analyzing the Users</li>
+              <ul>
+                <li>Interview college students on how they used music apps.</li>
+                <li>Recorded the interviewees walking through different scenarios.</li>
+                <li>For a variety of aspects, compared a set of apps.</li>
+                  <ul>
+                    <li>Apps compared included: Spotify, Soundcloud, and YouTube.</li>
+                    <li>Compared steps involved for different scenarios.</li>
+                    <li>Compared the organization and interfaces of the different apps.</li>
+                  </ul>
+              </ul>
+            <li>Week 2: Redesigning the Apps</li>
+              <ul>
+                <li>Generated an initial design idea and direction.</li>
+                <li>Drew out thumbnails to plan the scenarios for the prototype we were making.</li>
+                <li>Created digital graphical assets to be used in the prototype.</li>
+                  <ul>
+                    <li>Used <a href="https://www.gimp.org/">GIMP</a> for asset creation.</li>
+                  </ul>
+                <li>Created screen images to use with <a href="invisionapp.com">Invision</a>.</li>
+              </ul>
+            <li>I learned about how users interacted with various apps.</li>
+              <ul>
+                <li>Users tailor their behaviors to the app and they prioritize the functionality
+                  over organization of the app.</li>
+                <li>Users usually know what they want and just want to directly get to their goal.</li>
+                  <ul>
+                    <li>My group's app reflected this by focusing on the main functionalities and making
+                     the other tasks as straightforward as possible.</li>
+                  </ul>
+              </ul>
+            <li>It was hard to decide on how we could improve on the existing designs
+               used by the top apps in this category despite doing analyses on them.</li>
+              <ul>
+                <li>We decided to aim our design towards improving the scenarios that
+                   the other apps had poor interactions for.</li>
+              </ul>
+            <li>The final redesign aims to make scenarios, that the other apps were weaker with,
+             a lot simpler. We emphasized the main functionality in the navigation and organization
+             of the app in order to focus on the main needs of our users.</li>
+          </ul>
+        </blockquote>
+        <h3>Gallery: (image opens in new tab)</h3>
+        <table class="gallery thumbnail" id="mus1">
+          <tr>
+            <td>
+              <a href="screenshots/red_ques.png" target="_blank">
+              <img src="screenshots/cred_ques.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/red_scen.png" target="_blank">
+              <img src="screenshots/cred_scen.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/red_steps.png" target="_blank">
+              <img src="screenshots/cred_steps.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/red_comp.png" target="_blank">
+              <img src="screenshots/cred_comp.png"/></a>
+            </td>
+          </tr>
+          <tr class="mus2">
+            <td class="caption"><div class="text"><span>Interview Questions</span></div></td>
+            <td class="caption"><div class="text"><span>Step-through Scenarios</span></div></td>
+            <td class="caption"><div class="text"><span>Comparing Step-throughs</span></div></td>
+            <td class="caption"><div class="text"><span>Comparing Organization</span></div></td>
+          </tr>
+          <tr>
+            <td>
+              <a href="screenshots/red_sketch.png" target="_blank">
+              <img src="screenshots/cred_sketch.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/red_main.png" target="_blank">
+              <img src="screenshots/cred_main.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/red_more.png" target="_blank">
+              <img src="screenshots/cred_more.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/red_playlists.png" target="_blank">
+              <img src="screenshots/cred_playlists.png"/></a>
+            </td>
+          </tr>
+          <tr class="mus2">
+            <td class="caption"><div class="text"><span>Redesign Sketches</span></div></td>
+            <td class="caption"><div class="text"><span>Redesign Homepage</span></div></td>
+            <td class="caption"><div class="text"><span>Redesign Playlist Options</span></div></td>
+            <td class="caption"><div class="text"><span>Redesign Playlist Page</span></div></td>
+          </tr>
+        </table>
+      </div>
+      <a name="anc_port" id="pos_port"></a>
+      <div class="main_title2" id="main_title">
+        <h2>Project: Digital Portfolio</h2>
+        <p>Date: March 2016</p>
+      </div>
+      <div id="project2" class="sizer">
+        <h1>Design and Development of my Online Portfolio</h1>
+        <span>Completed for the course COGS187a: Cognitive Aspects of Digital Design</span>
+        <blockquote>
+          <ul>
+            <li>Sketched out and brainstormed ideas.</li>
+              <ul>
+                <li>Aiming to create a single page website experience.</li>
+              </ul>
+            <li>Created a low-fidelity prototype using <a href="http://www.axure.com/">Axure</a>.</li>
+            <li>Coded the website using HTML, CSS, and Javascript.</li>
+            <ul>
+              <li>Used Javascript for animations and responsive design aspects such as dynamic sizing.</li>
+              <li>Strived to accurately recreate the website that I imagined.</li>
+              <li>Used the <a href="https://atom.io/">Atom</a> text editor.</li>
+            </ul>
+            <li>Planned content to add to the website.</li>
+          </ul>
+        </blockquote>
+        <h3>Gallery: (image opens in new tab)</h3>
+        <table class="gallery thumbnail" id="port1">
+          <tr>
+            <td>
+              <a href="screenshots/port_sketch.jpg" target="_blank">
+              <img src="screenshots/cport_sketch.jpg"/></a>
+            </td>
+            <td>
+              <a href="screenshots/port_axure.png" target="_blank">
+              <img src="screenshots/cport_axure.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/port_proto.png" target="_blank">
+              <img src="screenshots/cport_proto.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/port_fade.png" target="_blank">
+              <img src="screenshots/cport_fade.png"/></a>
+            </td>
+          </tr>
+          <tr class="port2">
+            <td class="caption"><div class="text"><span>Initial Design Sketch</span></div></td>
+            <td class="caption"><div class="text"><span>Axure Prototyping</span></div></td>
+            <td class="caption"><div class="text"><span>Prototype: Homepage</span></div></td>
+            <td class="caption"><div class="text"><span>Prototype: Fade Transition</span></div></td>
+          </tr>
+          <tr>
+            <td>
+              <a href="screenshots/port_proAbt.png" target="_blank">
+              <img src="screenshots/cport_proAbt.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/port_proProj.png" target="_blank">
+              <img src="screenshots/cport_proProj.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/port_proCont.png" target="_blank">
+              <img src="screenshots/cport_proCont.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/port_code.png" target="_blank">
+              <img src="screenshots/cport_code.png"/></a>
+            </td>
+          </tr>
+          <tr class="port2">
+            <td class="caption"><div class="text"><span>Prototype: About Page</span></div></td>
+            <td class="caption"><div class="text"><span>Prototype: Project Page</span></div></td>
+            <td class="caption"><div class="text"><span>Prototype: Contact Info and Footer</span></div></td>
+            <td class="caption"><div class="text"><span>Coding the Website</span></div></td>
+          </tr>
+          <tr>
+            <td>
+              <a href="screenshots/port_home.png" target="_blank">
+              <img src="screenshots/cport_home.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/port_actual.png" target="_blank">
+              <img src="screenshots/cport_actual.png"/></a>
+            </td>
+          </tr>
+          <tr class="port2">
+            <td class="caption"><div class="text"><span>Final Home Page Design</span></div></td>
+            <td class="caption"><div class="text"><span>Final Layout Design</span></div></td>
+          </tr>
+        </table>
+      </div>
+      <a name="anc_time" id="pos_time"></a>
+      <div class="main_title3" id="main_title">
+        <h2>Project: Productivity Timer</h2>
+        <p>Date: March 2016</p>
+      </div>
+      <div id="project3" class="sizer">
+        <h1>Timer based on the Pomodoro Technique</h1>
+        <span>Learned about software development and furthered my understanding of Java.</span>
+        <blockquote>
+          <ul>
+            <li>Planned out features and rough designs.</li>
+            <li>Outlined the structure for the programming.</li>
+            <li>Coded the program using Java.</li>
+              <ul>
+                <li>Implemented the GUI using the Java Swing library.</li>
+                <li>Used threads to implement multiple timer functionality.</li>
+                <li>IDE used was <a href="https://eclipse.org/">Eclipse</a>.</li>
+              </ul>
+          </ul>
+        </blockquote>
+        <h3>Gallery: (image opens in new tab)</h3>
+        <table class="gallery thumbnail" id="time1">
+          <tr>
+            <td>
+              <a href="screenshots/time_sketch.JPG" target="_blank">
+              <img src="screenshots/ctime_sketch.JPG"/></a>
+            </td>
+            <td>
+              <a href="screenshots/time_load.png" target="_blank">
+              <img src="screenshots/ctime_load.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/time_add.png" target="_blank">
+              <img src="screenshots/ctime_add.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/time_float.png" target="_blank">
+              <img src="screenshots/ctime_float.png"/></a>
+            </td>
+          </tr>
+          <tr class="time2">
+            <td class="caption"><div class="text"><span>Brainstorming Sketches and To-do List</span></div></td>
+            <td class="caption"><div class="text"><span>Program at Load</span></div></td>
+            <td class="caption"><div class="text"><span>Adding a Task</span></div></td>
+            <td class="caption"><div class="text"><span>Feature: Floating Window</span></div></td>
+          </tr>
+          <tr>
+            <td>
+              <a href="screenshots/time_edit.png" target="_blank">
+              <img src="screenshots/ctime_edit.png"/></a>
+            </td>
+            <td>
+              <a href="screenshots/time_settings.png" target="_blank">
+              <img src="screenshots/ctime_settings.png"/></a>
+            </td>
+          </tr>
+          <tr class="time2">
+            <td class="caption"><div class="text"><span>Right-click Menu</span></div></td>
+            <td class="caption"><div class="text"><span>Settings Dialog</span></div></td>
+          </tr>
+        </table>
+      </div>
+      <a name="anc_cont" id="pos_cont"></a>
+      <div id="contact">
+        <h1>Contact Me</h1>
+        <p>
+          E-mail: iying@ucsd.edu
+        </p>
+        </br>
+        <img src="lnkin.png" style="max-width: 14px;"/>: <a href="www.linkedin.com/in/yingirene">www.linkedin.com/in/yingirene</a>
+      </div>
+      <div id="footer">
+        <span style="display: block;">Copyright&copy;2016 IRENE YING all rights reserved.</span>
+        <span>.--. .-.. . .- ... . / -.-. --- -. - .- -.-. - / -- . / .-- .. - .... / .- -. -.-- / --.- ..- . ... - .. --- -. ... / -.-- --- ..- / -- .- -.-- / .... .- ...- . .-.-.-</span>
+      </div>
+      <div id="page_end"></div>
+    </div>
+    <div id="screen_bottom"></div>
+  </body>
+</html>
